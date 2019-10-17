@@ -1,13 +1,23 @@
 <div class="container">
     <h2>User Settings</h2>
-    <form>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
        <div class="form-group">
             <label for="name">Name</label>
-            <input id="name" name="name" class="form-control" type="text" placeholder="Name" />
+            <input id="name" name="name" 
+                    class="form-control" 
+                    [(ngModel)]="userSettings.name" 
+                    #nameField="ngModel" 
+                    (blur)="onBlur(nameField)"
+                    [class.field-error]="form.submitted && nameField.invalid"
+                    required/>
+            <div [hidden]="!form.submitted || nameField.valid"
+                class="alert alert-danger">
+                Enter a name
+            </div>
        </div>
 
        <div class="form-check form-group">
-            <input class="form-check-input" type="checkbox" value="" id="emailOffers" />
+            <input class="form-check-input" type="checkbox" name="emailOffers" id="emailOffers" [(ngModel)]="userSettings.emailOffers" />
             <label class="form-check-label" for="emailOffers">
               Email Special Offers
             </label>
@@ -16,19 +26,19 @@
         <p>User Interface Style</p>
         <div class="form-group">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="interfaceStyle" id="lightInterface" value="light" checked />
+                <input class="form-check-input" type="radio" name="interfaceStyle" id="lightInterface" value="light" checked [(ngModel)]="userSettings.interfaceStyle" />
                 <label class="form-check-label" for="lightInterface">
                     Light
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="interfaceStyle" id="mediumInterface" value="medium /">
+                <input class="form-check-input" type="radio" name="interfaceStyle" id="mediumInterface" value="medium" [(ngModel)]="userSettings.interfaceStyle" />
                 <label class="form-check-label" for="mediumInterface">
                     Medium
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="interfaceStyle" id="interfaceStyle" value="dark" />
+                <input class="form-check-input" type="radio" name="interfaceStyle" id="interfaceStyle" value="dark" [(ngModel)]="userSettings.interfaceStyle" />
                 <label class="form-check-label" for="interfaceStyle">
                         Dark
                 </label>
@@ -37,7 +47,7 @@
 
         <div class="form-group">
             <label for="subscriptionType">Subscription Type</label>
-            <select class="form-control" id="subscriptionType">
+            <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscritionType" >
                 <option>Monthly</option>
                 <option>Annual</option>
                 <option>Lifetime</option>
@@ -46,9 +56,11 @@
 
         <div class="form-group">
             <label for="notes">Notes</label>
-            <textarea name="notes" id="notes" class="form-control" rows="3"></textarea>
+            <textarea name="notes" id="notes" class="form-control" rows="3" [(ngModel)]="userSettings.notes"></textarea>
         </div>
 
        <button class="btn btn-primary">Send</button>
     </form>
 </div>
+<!-- 
+{{ userSettings | json }} -->
