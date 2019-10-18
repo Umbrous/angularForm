@@ -48,9 +48,9 @@
         <div class="form-group">
             <label for="subscriptionType">Subscription Type</label>
             <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscritionType" >
-                <option>Monthly</option>
-                <option>Annual</option>
-                <option>Lifetime</option>
+                <option *ngFor="let type of subscriptionTypes | async">
+                    {{ type }}
+                </option>
             </select>
         </div>
 
@@ -62,5 +62,3 @@
        <button class="btn btn-primary">Send</button>
     </form>
 </div>
-<!-- 
-{{ userSettings | json }} -->
