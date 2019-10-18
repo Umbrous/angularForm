@@ -19,6 +19,8 @@ export class UserSettingFormComponent implements OnInit {
      notes: null
   };
 
+  singleModel = 'On';
+  startDate: Date;
   userSettings: UserSettings = { ...this.OriginalUserSettings };
   postError = false;
   postErrorMessage = '';
@@ -28,6 +30,7 @@ export class UserSettingFormComponent implements OnInit {
 
   ngOnInit() {
     this.subscriptionTypes = this.dataService.getSubscriptionTypes();
+    this.startDate = new Date();
   }
 
   onBlur(field: NgModel) {
@@ -35,11 +38,11 @@ export class UserSettingFormComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log('in onSubmit: ', form.valid);
-    this.dataService.postUserSettingsForm(this.userSettings).subscribe(
-      result => console.log('success: ', result),
-      error => console.log('error: ', error)
-    );
+    console.log('in onSubmit: ', form.value);
+    // this.dataService.postUserSettingsForm(this.userSettings).subscribe(
+    //   result => console.log('success: ', result),
+    //   error => console.log('error: ', error)
+    // );
   }
 
 }
